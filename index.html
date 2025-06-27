@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ortigia Music 2025</title>
+  
+  <!-- Preload dell'immagine più leggera per il caricamento immediato -->
+  <link rel="preload" as="image" href="assets/background.png">
+  
+  <!-- Preload condizionale per desktop solo se connessione veloce -->
+  <link rel="preload" as="image" href="assets/background-full.png" media="(min-width: 1025px) and (min-resolution: 2dppx)">
+  
   <style>
     body {
       margin: 0;
@@ -17,6 +24,7 @@
       align-items: center;
       font-family: Arial, sans-serif;
       position: relative;
+      transition: background-image 0.3s ease-in-out;
     }
 
     /* Mobile devices */
@@ -33,10 +41,17 @@
       }
     }
 
-    /* Desktop and larger screens */
-    @media (min-width: 1025px) {
+    /* Desktop - carica solo con connessione veloce */
+    @media (min-width: 1025px) and (prefers-reduced-data: no-preference) {
       body {
         background-image: url('assets/background-full.png');
+      }
+    }
+
+    /* Fallback per desktop con connessione lenta */
+    @media (min-width: 1025px) and (prefers-reduced-data: reduce) {
+      body {
+        background-image: url('assets/background-medium.png');
       }
     }
 
